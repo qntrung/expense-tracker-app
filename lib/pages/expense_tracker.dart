@@ -27,6 +27,7 @@ class _ExpenseTrackerScreenState extends State<ExpenseTrackerScreen> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (ctx) {
           return AddExpense(
@@ -38,6 +39,12 @@ class _ExpenseTrackerScreenState extends State<ExpenseTrackerScreen> {
   void _addExpense(ExpenseModel exp) {
     setState(() {
       _expenses.add(exp);
+    });
+  }
+
+  void _removeExpense(ExpenseModel exp) {
+    setState(() {
+      _expenses.remove(exp);
     });
   }
 
@@ -62,6 +69,7 @@ class _ExpenseTrackerScreenState extends State<ExpenseTrackerScreen> {
           Expanded(
             child: ExpenseList(
               expenses: _expenses,
+              onRemoveExpense: _removeExpense,
             ),
           ),
         ],
